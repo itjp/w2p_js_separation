@@ -30,7 +30,11 @@ A little bit of wording (download the app and try yourself fiddling with the cod
   - hopefully it will be "switchable" with the current web2py.js
   - hopefully someone could take that and do a dojo or a prototype version of it
 - wherever python code needs feature, it puts them in data-* attributes (right now they are all data-w2p_* to prevent name collisions)
-- all events are hooked to the document with the sweet .on() function
+- all "general" events are hooked to the document with the sweet .on() function
+  - web2py.js (or you) will attach specific events to single elements to customize behaviour
+- at the end of web2py_non_inlined.js there are "backward compatibility" statements. Some of web2py.js was documented to be used
+  on the book and some things are used right now by web2py code that inlines some of those functions.
+  Hopefully those won't be necessary with new web2py version but will still be valid to be used with older versions.
 - web2py won't provide any platform specific js code inside python source, it will "defer" those features to hooks defined in web2py.js
 - web2py.js will be an integral part of web2py. All users will need to upgrade web2py.js in every app if they want to run a newer version of web2py
 
