@@ -1,0 +1,71 @@
+{{extend 'layout.html'}}
+
+{{=STRONG(message)}}
+
+<div class="row-fluid">
+    <div class="span8">
+        {{for i, a in enumerate(mya):}}
+            {{=H6("a%s" % (i+1))}}
+            {{=CODE(a)}}
+            {{eval_ed = eval(a)}}
+            {{=PRE(eval_ed.xml())}}
+            {{=eval_ed}}
+              <hr />
+        {{pass}}
+    </div>
+</div>
+
+<div class="follower span4">
+    <button id="reset">Reset</button>
+    <button id="reload">Reload</button>
+    <h5>Ajax Logger</h5>
+    <pre id="logger" class="well">
+    </pre>
+
+    <h5>Default "target" div</h5>
+    <div id="default_target" class="well"></div>
+
+</div>
+<style>
+    .follower {
+        position: fixed;
+        top: 50px;
+        right: 10px;
+    }
+</style>
+
+<script>
+
+    function append_to_log(message) {
+        var pretext = $("#logger").text();
+        $("#logger").text(pretext + '\n' + message);
+    }
+    function reset_status() {
+        $("#logger, #default_target").fadeOut().fadeIn().empty();
+    }
+
+    $(document).ajaxComplete(function(event, jqxhr, settings) {
+        reset_status();
+        var message = 'Status: ' + jqxhr.status + '\n';
+        message += 'Text: ' + jqxhr.responseText + '\n';
+        message += 'Type:' + settings.type + '\n';
+        message += 'Url:' + settings.url + '\n';
+        append_to_log(message);
+        append_to_log('Headers');
+        append_to_log(jqxhr.getAllResponseHeaders());
+    });
+
+    $(function() {
+        $('#reset').click(function() {
+            reset_status();
+        });
+        $('#reload').click(function() {
+            window.location.href = window.location.href;
+        });
+        var pagebytes = $('#main').html().length;
+        var kbytes = pagebytes / 1024;
+        $(".page-header").append('<h2>Rough #main size: ' + kbytes.toFixed(3) +' (KB)</h2>')
+    })
+
+
+</script>
