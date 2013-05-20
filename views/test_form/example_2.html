@@ -1,0 +1,63 @@
+{{extend 'layout.html'}}
+
+<h5>Not working - hooking up to the complete or success event.
+The element is replaced by web2py</h5>
+
+{{=STRONG(message)}}
+{{=PRE("""
+<script>
+$.web2py.flash = function(message, status) {
+  var flash = $('.flash');
+  $.web2py.hide_flash();
+  flash.html(message).addClass('alert-' + status);
+  if(flash.html()) flash.append('<a href="#" class="close" data-dismiss="alert">&times;</a>').slideDown();
+},
+$.web2py.hide_flash = function() {
+  $('.flash').hide().html('').removeClass().addClass('flash alert');
+}
+
+$(function() {
+    $('#test_div').on('ajax:complete', 'form', function(e, data, status, xhr) {
+        //the object form has been replaced by the new one
+        var form = $('#test_div form');
+        console.log('a', form);
+    });
+    $('#test_div').on('ajax:success', 'form', function(e, data, status, xhr) {
+        //the object form has been replaced by the new one
+        var form = $('#test_div form');
+        console.log('b', form);
+    });
+})
+</script>
+"""
+)}}
+
+<div class="well info">{{=content}}</div>
+
+{{=loaded}}
+
+
+<script>
+$.web2py.flash = function(message, status) {
+  var flash = $('.flash');
+  $.web2py.hide_flash();
+  flash.html(message).addClass('alert-' + status);
+  if(flash.html()) flash.append('<a href="#" class="close" data-dismiss="alert">&times;</a>').slideDown();
+},
+$.web2py.hide_flash = function() {
+  $('.flash').hide().html('').removeClass().addClass('flash alert');
+}
+
+$(function() {
+    $('#test_div').on('ajax:complete', 'form', function(e, data, status, xhr) {
+        //the object form has been replaced by the new one
+        var form = $('#test_div form');
+        console.log('a', form);
+    });
+    $('#test_div').on('ajax:success', 'form', function(e, data, status, xhr) {
+        //the object form has been replaced by the new one
+        var form = $('#test_div form');
+        console.log('b', form);
+    });
+})
+</script>

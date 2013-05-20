@@ -29,5 +29,6 @@ response.menu = [
     ('A Helper', False, URL('test_a', 'old'), []),
     ('New A Helper', False, URL('test_a', 'new'), []),
     ('List Widget', False, URL('test_list_widget', 'new'), []),
-    ('Password Widget', False, URL('test_password_widget', 'new'), [])
+    ('Password Widget', False, URL('test_password_widget', 'new'), []),
+    ('Forms', False, URL('test_password_widget', 'new'), [])
 ]

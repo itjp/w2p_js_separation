@@ -1,0 +1,56 @@
+{{extend 'layout.html'}}
+
+<h5>Flash customization</h5>
+
+{{=STRONG(message)}}
+{{=PRE("""
+<script>
+$.web2py.flash = function(message, status) {
+  var flash = $('.flash');
+  $.web2py.hide_flash();
+  flash.html(message).addClass('alert-' + status);
+  if(flash.html()) flash.append('<a href="#" class="close" data-dismiss="alert">&times;</a>').slideDown();
+},
+$.web2py.hide_flash = function() {
+  $('.flash').hide().html('').removeClass().addClass('flash alert');
+}
+
+$(function() {
+    $('#test_div').on('ajax:beforeSend', 'form', function(e, xhr, settings) {
+        var form = $(this);
+        if ($('input[name=dfield]', form).val() < 20) {
+            $.web2py.flash('client-side validation. Insert a value > 20 into dfield', 'error');
+            return false;
+        }
+    });
+})
+</script>
+"""
+)}}
+
+<div class="well info">{{=content}}</div>
+
+{{=loaded}}
+
+
+<script>
+$.web2py.flash = function(message, status) {
+  var flash = $('.flash');
+  $.web2py.hide_flash();
+  flash.html(message).addClass('alert-' + status);
+  if(flash.html()) flash.append('<a href="#" class="close" data-dismiss="alert">&times;</a>').slideDown();
+},
+$.web2py.hide_flash = function() {
+  $('.flash').hide().html('').removeClass().addClass('flash alert');
+}
+
+$(function() {
+    $('#test_div').on('ajax:beforeSend', 'form', function(e, xhr, settings) {
+        var form = $(this);
+        if ($('input[name=dfield]', form).val() < 20) {
+            $.web2py.flash('client-side validation. Insert a value > 20 into dfield', 'error');
+            return false;
+        }
+    });
+})
+</script>
